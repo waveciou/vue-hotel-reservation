@@ -1,0 +1,85 @@
+@charset "UTF-8";
+
+// variable
+$color-white: #FFFFFF;
+$color-black: #000000;
+$color-gray-light: #EAEAEA;
+$color-gray: #AAAAAA;
+$color-gray-dark: #707070;
+$color-gray-black: #4B4B4B;
+
+// RWD Max Width Breakpoints
+@mixin max-width($breakpoints) {
+    @media screen and (max-width: $breakpoints) {
+        @content;
+    }
+}
+
+// RWD Min Width Breakpoints
+@mixin min-width($breakpoints) {
+    @media screen and (min-width: $breakpoints) {
+        @content;
+    }
+}
+
+// RWD Max Height Breakpoints
+@mixin max-height($breakpoints) {
+    @media screen and (max-height: $breakpoints) {
+        @content;
+    }
+}
+
+// RWD Min Height Breakpoints
+@mixin min-height($breakpoints){
+    @media screen and (min-height: $breakpoints) {
+        @content;
+    }
+}
+
+// Clearfix
+@mixin clearfix {
+    &::after {
+        content: ".";
+        display: block;
+        height: 0;
+        clear: both;
+        visibility: hidden;
+    }
+}
+
+// The CSS hack for IE10 & IE11
+@mixin hack-ie {
+    @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+        @content;
+    }
+}
+
+// Font Awesome
+@mixin fontawesome{
+    font-weight: 900;
+    font-family: 'Font Awesome 5 Free';
+}
+
+// Material Icons
+@mixin material {
+    font-family: 'Material Icons';
+    font-weight: normal;
+    font-style: normal;
+    line-height: 1;
+    letter-spacing: normal;
+    text-transform: none;
+    text-align: center;
+    display: inline-block;
+    vertical-align: middle;
+    white-space: nowrap;
+    word-wrap: normal;
+    direction: ltr;
+    -webkit-font-smoothing: antialiased;
+}
+
+// Hide Text
+@mixin hide-text {
+    font-size: 0rem;
+    overflow: hidden;
+    text-indent: -9999px;
+}

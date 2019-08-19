@@ -1,0 +1,40 @@
+@charset "UTF-8";
+@import "./_utils.scss";
+@import "./_reset.scss";
+
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+
+body {
+    font-size: 16px;
+    line-height: 1.6em;
+    letter-spacing: 1px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    background-color: $color-white;
+}
+
+// * 網頁內容佈局寬度
+.wrap {
+    width: calc(100% - 40px);
+    margin: auto;
+    @include min-width(1280px + 20px) {
+        max-width: 1280px;
+    }
+}
+
+// * 動畫
+.fade-leave,
+.fade-enter-to {
+    opacity: 1;
+}
+
+.fade-enter,
+.fade-leave-to {
+    opacity: 0;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+    transition: all .3s;
+}
