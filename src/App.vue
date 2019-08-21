@@ -34,6 +34,8 @@
     import home from './views/home.vue';
     import room from './views/room.vue';
 
+    import axios from 'axios';
+
     export default {
         data() {
             return {
@@ -45,10 +47,18 @@
             'room': room
         },
         created() {
-
+            // 取得所有房型
+            axios.get('https://challenge.thef2e.com/api/thef2e2019/stage6/rooms', {
+                headers: {
+                    accept: 'application/json',
+                    Authorization: 'Bearer FEHYikSsoJvXjqurOCdQ3nfnpY6i579Hjh7K7ToTmJ11tB7tuiexfHE9uxp8'
+                }
+            }).then((response) => {
+                this.$store.dispatch('getRoomsAllData', response.data.items);
+            });
         },
         mounted() {
-
+            
         },
         methods: {
 
@@ -62,86 +72,4 @@
 <style lang="scss">
     @import 'assets/scss/_utils.scss';
     @import 'assets/scss/main.scss';
-
-    .header {
-        width: 100%;
-        height: 90px;
-        background-color: $color-white;
-
-        > .wrap {
-            height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-    }
-
-    .menu {
-        display: flex;
-        align-items: center;
-    }
-
-    .menu-link {
-        display: block;
-        margin-left: 22px;
-        margin-right: 22px;
-        font-size: 22px;
-        font-weight: 600;
-        color: $color-black;
-    }
-
-    .logo {
-        color: $color-black;
-        font-size: 39px;
-        font-weight: 700;
-        line-height: 1.6em;
-    }
-
-    .footer {
-        padding-top: 60px;
-        padding-bottom: 50px;
-        background-color: $color-gray-light;
-
-        .contact {
-            padding-left: 10px;
-            padding-right: 10px;
-
-            p, a {
-                display: block;
-                color: $color-black;
-                font-weight: 600;
-
-                &::before {
-                    @include material;
-                    line-height: 1.6em;
-                    font-size: 22px;
-                    margin-right: 10px;
-                }
-
-                &.icon-place::before {
-                    content: 'place';
-                }
-
-                &.icon-phone::before {
-                    content: 'phone';
-                }
-
-                &.icon-email::before {
-                    content: 'email';
-                }
-            }
-        }
-    }
-
-    .mainFooter {
-        display: flex;
-        justify-content: space-between;
-    }
-
-    .copyright {
-        margin-top: 20px;
-        color: $color-black;
-        font-weight: 600;
-        text-align: right;
-    }
 </style>
