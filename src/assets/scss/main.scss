@@ -108,6 +108,21 @@ body {
     text-align: right;
 }
 
+// * Title
+.title {
+    font-size: 35px;
+    font-weight: 600;
+    line-height: 1.4em;
+    color: $color-black;
+}
+
+.subtitle {
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 1.6em;
+    color: $color-gray-dark;
+}
+
 // * 動畫
 .fade-leave,
 .fade-enter-to {

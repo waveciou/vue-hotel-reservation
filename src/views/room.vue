@@ -1,6 +1,6 @@
 <template>
     <div class="wrap">
-        <h1>This is an about page</h1>
+        
     </div>
 </template>
 
@@ -13,7 +13,7 @@
         },
         name: 'room',
         created() {
-
+            console.log(this.$route.query.id);
         },
         mounted() {
 
