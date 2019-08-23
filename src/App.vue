@@ -4,7 +4,7 @@
             <div class="wrap">
                 <h1 class="logo">:OR</h1>
                 <div class="menu">
-                    <a href="#" class="menu-link">HOME</a>
+                    <router-link to="home" class="menu-link">HOME</router-link>
                     <a href="#" class="menu-link">ROOMS</a>
                 </div>
             </div>
