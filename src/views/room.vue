@@ -3,21 +3,27 @@
 
         <div class="container">
             <div class="article">
-                <h2 class="title">{{ room.name }}</h2>
-                <p>{{ room.description }}</p>
+                <h2 class="title">{{ this.room.name }}</h2>
+                <p>{{ this.room.description }}</p>
 
                 <div class="price-block">
-                    <div class="price-item">平日每晚 {{ room.normalDayPrice }}</div>
-                    <div class="price-item">假日每晚 {{ room.holidayPrice }}</div>
+                    <div class="price-item">平日每晚 $ {{ toCurrency(this.room.normalDayPrice) }}</div>
+                    <div class="price-item">假日每晚 $ {{ toCurrency(this.room.holidayPrice) }}</div>
                 </div>
 
                 <ul class="descriptionShort">
-                    <li>客房人數限制：{{ room.descriptionShort.GuestMax }}</li>
-                    <li>房間大小：{{ room.descriptionShort.Footage }}</li>
-                    <li>床型：</li>
-                    <li>checkIn 時間：{{ room.checkInAndOut.checkInEarly }} - {{ room.checkInAndOut.checkInLate }}</li>
-                    <li>衛浴數量：{{ room.descriptionShort['Private-Bath'] }}</li>
-                    <li>checkOut 時間：{{ room.checkInAndOut.checkOut }}</li>
+                    <li>客房人數限制：{{ this.getGuestNumber }}</li>
+                    <li>房間大小：{{ this.room.descriptionShort.Footage }}</li>
+                    <li>床型：{{ this.getBedClassName }}</li>
+                    <li>checkIn 時間：{{ this.room.checkInAndOut.checkInEarly }} - {{ this.room.checkInAndOut.checkInLate }}</li>
+                    <li>衛浴數量：{{ this.room.descriptionShort['Private-Bath'] }}</li>
+                    <li>checkOut 時間：{{ this.room.checkInAndOut.checkOut }}</li>
+                </ul>
+
+                <ul class="amenitiesList">
+                    <li v-for="(item, index) in this.room.amenitiesList" :key="index">
+                        <div class="amenities-item" :class="{'current': item[1]}">{{ item[0] }}</div>
+                    </li>
                 </ul>
 
             </div>
@@ -44,8 +50,10 @@
                     descriptionShort: {
                         GuestMax: '-',
                         Footage: '-',
-                        'Private-Bath': '-' 
-                    }
+                        'Private-Bath': '-',
+                        Bed: []
+                    },
+                    amenitiesList: []
                 }
             }
         },
@@ -59,14 +67,118 @@
                 }
             }).then((response) => {
                 this.room = response.data.room[0];
-                console.log(this.room)
+                // console.log(this.room.amenities)
+                this.setAenitiesList();
             });
         },
         mounted() {
 
         },
         methods: {
+            setAenitiesList() {
+                let obj = this.room.amenities;
+                this.room.amenitiesList = Object.keys(obj).map(item => {
+                    let name = '';
+                    switch(item) {
+                        case 'Wi-Fi':
+                            name = 'Wifi';
+                            break;
+                        case 'Room-Service':
+                            name = 'Room Service';
+                            break;
+                        case 'Refrigerator':
+                            name = '冰箱';
+                            break;
+                        case 'Smoke-Free':
+                            name = '可吸菸';
+                            break;
+                        case 'Mini-Bar':
+                            name = 'Mini Bar';
+                            break;
+                        case 'Television':
+                            name = '電視';
+                            break;
+                        case 'Sofa':
+                            name = '沙發';
+                            break;
+                        case 'Child-Friendly':
+                            name = '適合兒童';
+                            break;
+                        case 'Breakfast':
+                            name = '早餐';
+                            break;
+                        case 'Air-Conditioner':
+                            name = '空調';
+                            break;
+                        case 'Great-View':
+                            name = '景觀';
+                            break;
+                        case 'Pet-Friendly':
+                            name = '寵物攜帶';
+                            break;
+                        default:
+                        name = item;
+                    }
+                    return [name, obj[item]]
+                });
+            },
+            toCurrency(num) {
+                // 轉換成貨幣格式
+                if (typeof(num) === 'number') {
+                    num = num.toString();
+                }
+                let reg = /(-?\d+)(\d{3})/;
+                while(reg.test(num)) {
+                    num = num.replace(reg, '$1,$2');
+                }
+                return num;
+            },
+        },
+        computed: {
+            getBedClassName() {
+                // 篩選房型
+                let text = '';
+                let bed = this.room.descriptionShort.Bed;
+                let newBed = bed.sort((a, b) => {return a - b});
+                let lastItem = '';
 
+                newBed.forEach(item => {
+                    if (item !== lastItem) {
+                        let array = newBed.filter(bed => {return bed === item});
+                        let name = '';
+
+                        switch(item) {
+                            case 'Single':
+                                name = '單人床';
+                                break;
+                            case 'Small Double':
+                                name = '小型雙人床';
+                                break;
+                            case 'Double':
+                                name = '雙人床';
+                                break;
+                            case 'Queen':
+                                name = '豪華雙人床';
+                                break;
+                            default:
+                                name = item;
+                        }
+
+                        text += `${name} x ${array.length}`;
+                        lastItem = item;
+                    }
+                });
+
+                return text
+            },
+            getGuestNumber() {
+                // 篩選客房人數限制
+                if(this.room.descriptionShort.GuestMin === this.room.descriptionShort.GuestMax) {
+                    return `${this.room.descriptionShort.GuestMax} 人`;
+                } else {
+                    return `${this.room.descriptionShort.GuestMin} - ${this.room.descriptionShort.GuestMax} 人`;
+                }
+            }
         },
         watch: {
             
@@ -81,7 +193,7 @@
         display: flex;
         justify-content: space-between;
         padding-top: 3rem;
-        padding-bottom: 1rem;
+        padding-bottom: 3rem;
     }
 
     .article {
@@ -137,6 +249,47 @@
 
             &:nth-last-child(-n+2) {
                 margin-bottom: 0px;
+            }
+        }
+    }
+
+    // * 設施
+    .amenitiesList {
+        display: flex;
+        flex-wrap: wrap;
+        font-size: 18px;
+        line-height: 1.6em;
+        margin-bottom: 2rem;
+
+        > li {
+            width: 25%;
+            margin-bottom: 10px;
+        }
+    }
+
+    .amenities-item {
+        color: $color-gray;
+
+        &::before {
+            content: '';
+            width: 17px;
+            height: 17px;
+            margin-right: 10px;
+            display: inline-block;
+            vertical-align: middle;
+            border: {
+                width: 1px;
+                color: $color-gray;
+                style: solid;
+            }
+            box-sizing: border-box;
+        }
+
+        &.current {
+            color: $color-gray-black;
+            &::before {
+                border-color: $color-gray-black;
+                background-color: $color-gray-black;
             }
         }
     }
