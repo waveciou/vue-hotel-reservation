@@ -33,6 +33,9 @@
             </div>
             <div class="aside">
                 <h2 class="aside-title">BOOK NOW</h2>
+                
+                <BooksForm />
+
             </div>
         </div>
         
@@ -41,6 +44,7 @@
 
 <script>
     import Album from '@/components/Album.vue';
+    import BooksForm from '@/components/BooksForm.vue';
     import axios from 'axios';
 
     export default {
@@ -64,7 +68,8 @@
         },
         name: 'room',
         components: {
-            Album
+            Album,
+            BooksForm
         },
         created() {
             // 取得房型詳細資料
@@ -225,6 +230,7 @@
     }
 
     .aside-title {
+        margin-bottom: 1rem;
         font-size: 28px;
         font-weight: 600;
         line-height: 1.4em;

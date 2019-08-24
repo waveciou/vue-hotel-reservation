@@ -23,7 +23,7 @@
         },
         name: 'RoomsList',
         props: {
-            // msg: String
+            
         },
         created() {
 

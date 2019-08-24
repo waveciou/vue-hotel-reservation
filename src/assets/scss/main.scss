@@ -135,6 +135,70 @@ body {
     color: $color-gray-dark;
 }
 
+// * 表單元件
+.fieldset {
+    width: 100%;
+    margin-bottom: 1rem;
+
+    &.col-50 {
+        width: 50%;
+        padding-right: 10px;
+
+        & + .col-50 {
+            padding-left: 10px;
+            padding-right: 0px;
+        }
+    }
+}
+
+label {
+    display: block;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.2em;
+    color: $color-black;
+}
+
+input[type="text"] {
+    width: 100%;
+    height: 35px;
+    display: block;
+    padding: 3px 13px;
+    margin: 0px;
+    border: none;
+    border-bottom: 2px $color-black solid;
+    border-radius: 0px;
+    appearance: none;
+    outline: none;
+    font-size: 16px;
+    font-family: 'Noto Sans TC', sans-serif;
+    color: $color-gray-dark;
+}
+
+.ctrl-checkout {
+    .vdp-datepicker__calendar {
+        right: 0;
+    }
+}
+
+.submit-btn {
+    display: inline-block;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 18px;
+    font-weight: 600;
+    font-family: 'Noto Sans TC', sans-serif;
+    line-height: 1.2em;
+    color: $color-white;
+    background-color: $color-black;
+
+    @include min-width(1025px) {
+        &:hover {
+            background-color: $color-gray-dark;
+        }
+    };
+}
+
 // * 動畫
 .fade-leave,
 .fade-enter-to {
