@@ -3,59 +3,59 @@
         <div class="booksform-body">
             <div class="fieldset">
                 <label for="">NAME</label>
-                <input type="text" id="">
+                <input type="text" id="" class="ctrl-input">
             </div>
             <div class="fieldset">
                 <label for="">TEL</label>
-                <input type="text" id="">
+                <input type="text" id="" class="ctrl-input">
             </div>
             <div class="fieldset">
                 <label for="">ROOMS</label>
-                <input type="text" id="">
+                <input type="text" id="" class="ctrl-input">
             </div>
             <div class="fieldset col-50">
                 <label for="">CHECK IN</label>
-                <Datepicker v-model="checkInDate"
-                class="ctrl-checkin"
-                :format="datepicker.format"
-                :language="datepicker.languages['zh']"
-                :disabled-dates="datepicker.disabledDates"></Datepicker>
+                <DatePicker v-model="checkInDate" placeholder="請選擇開始日期"
+                :option="{
+                    start: datepicker.dateStart,
+                    disabled: datepicker.disabledDate
+                }"
+                :readonly="true"></DatePicker>
             </div>
             <div class="fieldset col-50">
                 <label for="">CHECK OUT</label>
-                <Datepicker v-model="checkOutDate"
-                class="ctrl-checkout"
-                :format="datepicker.format"
-                :language="datepicker.languages['zh']"
-                :disabled-dates="datepicker.disabledDates"></Datepicker>
+                <DatePicker v-model="checkOutDate" placeholder="請選擇結束日期"
+                :option="{
+                    start: datepicker.checkout.dateStart,
+                    disabled: datepicker.disabledDate
+                }"
+                :readonly="true"
+                :disabled="datepicker.checkout.disabled"></DatePicker>
             </div>
         </div>
         <div class="booksform-footer">
             <a href="javascript:;" class="submit-btn">立即預訂</a>
         </div>
-        
     </div>
 </template>
 
 <script>
-    import Datepicker from 'vuejs-datepicker';
-    import * as lang from "vuejs-datepicker/src/locale";
+    import manba from 'manba';
     export default {
         data() {
             return {
-                checkInDate: '',
-                checkOutDate: '',
+                checkInDate: null,
+                checkOutDate: null,
+                disabledDate: [],
                 datepicker: {
-                    format: 'yyyy-MM-dd',
-                    disabledDates: {
-                        to: new Date(),
-                        dates: [
-                            new Date(2019, 12, 16),
-                            new Date(2019, 12, 17),
-                            new Date(2019, 12, 18)
-                        ],
+                    dateStart: manba().add(0, manba.DAY),
+                    disabled: (value) => {
+                        return !this.disabledDate.indexOf(value.format())
                     },
-                    languages: lang,
+                    checkout: {
+                        dateStart: manba().add(0, manba.DAY),
+                        disabled: true
+                    }
                 },
             }
         },
@@ -64,7 +64,7 @@
             
         },
         components: {
-            Datepicker
+            
         },
         created() {
 
@@ -75,8 +75,16 @@
         methods: {
             
         },
-        watch: {
+        computed: {
             
+        },
+        watch: {
+            checkInDate: function(value) {
+                if (!value == '') {
+                    this.datepicker.checkout.disabled = false;
+                    this.datepicker.checkout.dateStart = manba(value).add(1, manba.DAY);
+                }
+            }
         }
     }
 </script>

@@ -33,9 +33,7 @@
             </div>
             <div class="aside">
                 <h2 class="aside-title">BOOK NOW</h2>
-                
                 <BooksForm />
-
             </div>
         </div>
         

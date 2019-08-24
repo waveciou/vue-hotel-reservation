@@ -12,6 +12,12 @@ body {
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
     background-color: $color-white;
+
+    a {
+        &:hover {
+            color: $color-black;
+        }
+    }
 }
 
 // * 網頁內容佈局寬度
@@ -159,7 +165,7 @@ label {
     color: $color-black;
 }
 
-input[type="text"] {
+input[type="text"].ctrl-input {
     width: 100%;
     height: 35px;
     display: block;
@@ -175,12 +181,6 @@ input[type="text"] {
     color: $color-gray-dark;
 }
 
-.ctrl-checkout {
-    .vdp-datepicker__calendar {
-        right: 0;
-    }
-}
-
 .submit-btn {
     display: inline-block;
     padding: 8px 16px;
@@ -194,6 +194,7 @@ input[type="text"] {
 
     @include min-width(1025px) {
         &:hover {
+            color: $color-white;
             background-color: $color-gray-dark;
         }
     };

@@ -59,6 +59,7 @@
         width: 100%;
         height: 0px;
         padding-bottom: 55%;
+        margin: 0px;
         position: relative;
         overflow: hidden;
 

@@ -60,6 +60,7 @@
         width: 100%;
         height: 0px;
         padding-bottom: 88%;
+        margin: 0px;
         position: relative;
         overflow: hidden;
 
