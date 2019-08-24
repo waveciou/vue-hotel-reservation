@@ -1,6 +1,10 @@
 <template>
     <div class="wrap">
 
+        <transition name="fade" mode="out-in">
+            <Album :imageUrl="this.room.imageUrl" />
+        </transition>
+
         <div class="container">
             <div class="article">
                 <h2 class="title">{{ this.room.name }}</h2>
@@ -36,6 +40,7 @@
 </template>
 
 <script>
+    import Album from '@/components/Album.vue';
     import axios from 'axios';
 
     export default {
@@ -58,6 +63,9 @@
             }
         },
         name: 'room',
+        components: {
+            Album
+        },
         created() {
             // 取得房型詳細資料
             axios.get(`https://challenge.thef2e.com/api/thef2e2019/stage6/room/${this.$route.query.id}`, {
@@ -67,7 +75,6 @@
                 }
             }).then((response) => {
                 this.room = response.data.room[0];
-                // console.log(this.room.amenities)
                 this.setAenitiesList();
             });
         },
@@ -211,7 +218,7 @@
     }
 
     .aside {
-        width: 350px;
+        width: 400px;
         box-shadow: 0px 3px 6px rgba($color-black, 0.16);
     }
 
