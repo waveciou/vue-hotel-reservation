@@ -4,8 +4,8 @@
             <img v-lazy="currentImage">
         </figure>
         <ul class="albumList">
-            <li v-for="(item, index) in this.imageList" :key="index">
-                <a href="javascript:;" class="albumList-image" :class="{'current': item === currentImage}" @click.prevent="selectCurrentImage(item)">
+            <li v-for="(item, index) in this.imageList" :key="index" :class="{'current': item === currentImage}">
+                <a href="javascript:;" class="albumList-image" @click.prevent="selectCurrentImage(item)">
                     <img v-lazy="item">
                 </a>
             </li>
@@ -91,6 +91,12 @@
             width: 15%;
             position: relative;
             margin-right: 20px;
+            opacity: 0.3;
+
+            &.current {
+                transition: opacity 0.4s;
+                opacity: 1;
+            }
         }
     }
 
@@ -115,20 +121,6 @@
 
             &[lazy="loaded"] {
                 opacity: 1;
-            }
-        }
-
-        &.current {
-            &::after {
-                content: '';
-                width: 100%;
-                height: 100%;
-                display: block;
-                position: absolute;
-                top: 0px;
-                left: 0px;
-                box-sizing: border-box;
-                border: 3px rgba($color-black, 0.6) solid;
             }
         }
     }

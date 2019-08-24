@@ -32,7 +32,7 @@
 
             </div>
             <div class="aside">
-                
+                <h2 class="aside-title">BOOK NOW</h2>
             </div>
         </div>
         
@@ -199,6 +199,7 @@
     .container {
         display: flex;
         justify-content: space-between;
+        align-items: flex-start;
         padding-top: 3rem;
         padding-bottom: 3rem;
     }
@@ -219,7 +220,16 @@
 
     .aside {
         width: 400px;
+        padding: 30px;
         box-shadow: 0px 3px 6px rgba($color-black, 0.16);
+    }
+
+    .aside-title {
+        font-size: 28px;
+        font-weight: 600;
+        line-height: 1.4em;
+        text-align: center;
+        color: $color-black;
     }
 
     // * 價格

@@ -64,41 +64,14 @@ body {
     padding-top: 60px;
     padding-bottom: 50px;
     background-color: $color-gray-light;
-
-    .contact {
-        padding-left: 10px;
-        padding-right: 10px;
-
-        p, a {
-            display: block;
-            color: $color-black;
-            font-weight: 600;
-
-            &::before {
-                @include material;
-                line-height: 1.6em;
-                font-size: 22px;
-                margin-right: 10px;
-            }
-
-            &.icon-place::before {
-                content: 'place';
-            }
-
-            &.icon-phone::before {
-                content: 'phone';
-            }
-
-            &.icon-email::before {
-                content: 'email';
-            }
-        }
-    }
 }
 
 .mainFooter {
     display: flex;
-    justify-content: space-between;
+}
+
+.footer-item {
+    margin-right: 90px;
 }
 
 .copyright {
@@ -106,6 +79,45 @@ body {
     color: $color-black;
     font-weight: 600;
     text-align: right;
+}
+
+.contact {
+    padding-left: 10px;
+    padding-right: 10px;
+
+    p, a {
+        display: block;
+        color: $color-black;
+        font-weight: 600;
+
+        &::before {
+            @include material;
+            line-height: 1.6em;
+            font-size: 22px;
+            margin-right: 10px;
+        }
+
+        &.icon-place::before {
+            content: 'place';
+        }
+
+        &.icon-phone::before {
+            content: 'phone';
+        }
+
+        &.icon-email::before {
+            content: 'email';
+        }
+    }
+}
+
+.sitmap-link {
+    display: block;
+    line-height: 1.6em;
+    margin-bottom: 10px;
+    font-size: 22px;
+    font-weight: 600;
+    color: $color-black;
 }
 
 // * Title
