@@ -37,18 +37,6 @@
         components: {
             RoomsList
         },
-        created() {
-
-        },
-        mounted() {
-
-        },
-        methods: {
-
-        },
-        watch: {
-            
-        }
     }
 </script>
 

@@ -7,7 +7,7 @@
                 </figure>
                 <div class="roomsList-heading">
                     <div class="roomsList-title">{{ item.name }}</div>
-                    <router-link :to="{path:'room', query:{id: item.id}}" class="roomsList-link">MORE</router-link>
+                    <a href="javascript:;" class="roomsList-link" @click.prevent="goToRoomPage(item.id)">MORE</a>
                 </div>
             </div>
         </li>
@@ -22,21 +22,17 @@
             }
         },
         name: 'RoomsList',
-        props: {
-            
-        },
-        created() {
-
-        },
-        mounted() {
-
-        },
         methods: {
-
+            goToRoomPage(id) {
+                this.$store.state.loading = true;
+                this.$router.push({
+                    path: 'room',
+                    query: {
+                        id: id
+                    }
+                });
+            }
         },
-        watch: {
-            
-        }
     }
 </script>
 

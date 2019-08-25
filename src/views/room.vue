@@ -71,7 +71,6 @@
             BooksForm
         },
         created() {
-            this.$store.state.loading = true;
             // 取得房型詳細資料
             axios.get(`https://challenge.thef2e.com/api/thef2e2019/stage6/room/${this.$route.query.id}`, {
                 headers: {
@@ -86,7 +85,15 @@
                 this.setAenitiesList();
                 this.$store.state.loading = false;
             }).catch(error => {
+                this.$store.state.loading = false;
+
+                this.$Message({
+                    type: 'error',
+                    text: '房型資料載入失敗'
+                });
                 console.log(error);
+
+                this.$router.push('home');
             });
         },
         methods: {

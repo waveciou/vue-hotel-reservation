@@ -56,11 +56,11 @@
                 checkOutDate: '',
                 disabledDate: [],
                 datepicker: {
-                    dateStart: manba().add(0, manba.DAY),
+                    dateStart: manba().add(1, manba.DAY),
                     disabled: (value) => {
                         return this.disabledDate.indexOf(value.format()) >= 0;
                     },
-                    checkoutStart: manba().add(0, manba.DAY),
+                    checkoutStart: manba().add(1, manba.DAY),
                     checkoutDisabled: true
                 },
                 form: {
@@ -73,15 +73,6 @@
         props: {
             room: Object,
             booking: Array
-        },
-        components: {
-            
-        },
-        created() {
-
-        },
-        mounted() {
-
         },
         methods: {
             toDateObj(datestr) {
@@ -140,34 +131,47 @@
                 valid.name = this.valBooksName(this.form.name);
                 valid.tel = this.valTelNumber(this.form.tel);
 
-                if (this.checkInDate === '' && this.checkOutDate === '') {
-                    valid.date = false;
-                } else {
-                    obj.date = this.getBookDates(this.checkInDate, this.checkOutDate);
-
-                    if (obj.date.length < 2) {
-                        valid.date = false;
-                        errorText = '訂房天數至少一晚以上';
-                    } else {
-                        errorText = '您所選擇的日期已經被預訂';
-                        valid.date = obj.date.every(item => {
-                            return this.disabledDate.indexOf(item) < 0;
-                        });
-                    }
-                }
-
-                if (valid.name === false || valid.tel === false || valid.date === false) {
+                if (valid.name === false || valid.tel === false) {
                     this.$Message({
                         type: 'error',
                         text: errorText
                     });
+                    return false
                 } else {
-                    obj.name = this.form.name;
-                    obj.tel = this.form.tel;
-                    this.sendBooksOrder(obj);
+
+                    // 檢查日期
+                    if (this.checkInDate === '' && this.checkOutDate === '') {
+                        errorText = '請選擇訂房日期與退房日期';
+                        valid.date = false;
+                    } else {
+                        obj.date = this.getBookDates(this.checkInDate, this.checkOutDate);
+
+                        if (obj.date.length < 2) {
+                            errorText = '訂房天數至少一晚以上';
+                            valid.date = false;
+                        } else {
+                            errorText = '您所選擇的日期已經被預訂';
+                            valid.date = obj.date.every(item => {
+                                return this.disabledDate.indexOf(item) < 0;
+                            });
+                        }
+                    }
+
+                    if (valid.name === false || valid.tel === false || valid.date === false) {
+                        this.$Message({
+                            type: 'error',
+                            text: errorText
+                        });
+                    } else {
+                        obj.name = this.form.name;
+                        obj.tel = this.form.tel;
+                        this.sendBooksOrder(obj);
+                    }
                 }
             },
             sendBooksOrder(obj) {
+                this.$store.state.loading = true;
+
                 // 送出訂單
                 axios({
                     method: 'POST',
@@ -186,7 +190,11 @@
                     this.form.name = '';
                     this.form.tel = '';
 
+                    this.$store.state.loading = false;
+
                 }).catch(error => {
+                    this.$store.state.loading = false;
+
                     this.$Message({
                         type: 'error',
                         text: '訂房失敗，此段時間無法預定'
@@ -195,17 +203,15 @@
                 });
             },
         },
-        computed: {
-            
-        },
         watch: {
             checkInDate: function(value) {
                 if (!value == '') {
                     this.datepicker.checkoutDisabled = false;
                     this.datepicker.checkoutStart = manba(value).add(1, manba.DAY);
                 } else {
+                    this.checkOutDate = '';
                     this.datepicker.checkoutDisabled = true;
-                    this.datepicker.checkoutStart = manba().add(0, manba.DAY);
+                    this.datepicker.checkoutStart = manba().add(1, manba.DAY);
                 }
             },
             booking: {
