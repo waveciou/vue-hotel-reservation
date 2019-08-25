@@ -4,7 +4,7 @@
 
 ## DEMO
 
-- [網站連結](https://waveciou.github.io/vue-hotel-reservation/dist/)
+- [網站連結](https://waveciou.github.io/vue-hotel-reservation/dist/index.html)
 
 ## DESIGN
 
