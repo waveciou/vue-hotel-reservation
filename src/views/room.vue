@@ -84,6 +84,7 @@
                 });
                 this.setAenitiesList();
                 this.$store.state.loading = false;
+                document.title = `Vue Hotel Reservation - ${this.room.name}`;
             }).catch(error => {
                 this.$store.state.loading = false;
 

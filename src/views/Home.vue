@@ -37,6 +37,9 @@
         components: {
             RoomsList
         },
+        created() {
+            document.title = `Vue Hotel Reservation`;
+        }
     }
 </script>
 
@@ -83,6 +86,7 @@
 
         p {
             font-size: 18px;
+            line-height: 1.6em;
         }
     }
 
