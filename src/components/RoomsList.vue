@@ -100,12 +100,21 @@
         letter-spacing: 1px;
         color: $color-gray-dark;
         float: right;
+        transition: color 0.4s;
 
         &::after {
             content: 'keyboard_arrow_right';
             @include material;
             font-size: 29px;
             vertical-align: top;
+            transition: transform 0.4s;
+        }
+
+        &:hover {
+            color: $color-black;
+            &::after {
+                transform: translateX(3px);
+            }
         }
     }
 </style>

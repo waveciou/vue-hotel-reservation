@@ -19,9 +19,9 @@
                     <li>客房人數限制：{{ this.getGuestNumber }}</li>
                     <li>房間大小：{{ this.room.descriptionShort.Footage }}</li>
                     <li>床型：{{ this.getBedClassName }}</li>
-                    <li>checkIn 時間：{{ this.room.checkInAndOut.checkInEarly }} - {{ this.room.checkInAndOut.checkInLate }}</li>
+                    <li>Check In 時間：{{ this.room.checkInAndOut.checkInEarly }} - {{ this.room.checkInAndOut.checkInLate }}</li>
                     <li>衛浴數量：{{ this.room.descriptionShort['Private-Bath'] }}</li>
-                    <li>checkOut 時間：{{ this.room.checkInAndOut.checkOut }}</li>
+                    <li>Check Out 時間：{{ this.room.checkInAndOut.checkOut }}</li>
                 </ul>
 
                 <ul class="amenitiesList">
@@ -107,7 +107,7 @@
                             name = 'Wifi';
                             break;
                         case 'Room-Service':
-                            name = 'Room Service';
+                            name = '客房服務';
                             break;
                         case 'Refrigerator':
                             name = '冰箱';

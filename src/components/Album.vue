@@ -81,6 +81,12 @@
         position: absolute;
         left: 0px;
         bottom: 40px;
+        opacity: 0.6;
+        transition: opacity 0.4s;
+
+        &:hover {
+            opacity: 1;
+        }
 
         > li {
             width: 15%;
@@ -88,7 +94,7 @@
             margin-right: 20px;
 
             &.current {
-                display: none;
+                
             }
         }
     }
@@ -100,6 +106,7 @@
         display: block;
         position: relative;
         overflow: hidden;
+        box-shadow: 1px 1px 4px rgba($color-gray-dark, 0.4);
 
         img {
             width: 100%;

@@ -56,6 +56,25 @@ body {
     font-size: 22px;
     font-weight: 600;
     color: $color-black;
+    position: relative;
+
+    &::after {
+        content: '';
+        width: 0%;
+        height: 3px;
+        display: block;
+        background-color: $color-black;
+        position: absolute;
+        left: 0px;
+        bottom: 0px;
+        transition: width 0.4s;
+    }
+
+    &:hover {
+        &::after {
+            width: 100%;
+        }
+    }
 }
 
 .logo {
@@ -124,6 +143,10 @@ body {
     font-size: 22px;
     font-weight: 600;
     color: $color-black;
+
+    &:hover {
+        color: $color-gray-dark;
+    }
 }
 
 // * Title
