@@ -5,7 +5,8 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
     state: {
-        rooms: []
+        rooms: [],
+        loading: false
     },
     actions: {
         // 取得所有房型並將所有資料存入 state

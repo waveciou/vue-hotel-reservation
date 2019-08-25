@@ -92,11 +92,9 @@
             width: 15%;
             position: relative;
             margin-right: 20px;
-            opacity: 0.3;
 
             &.current {
-                transition: opacity 0.4s;
-                opacity: 1;
+                display: none;
             }
         }
     }

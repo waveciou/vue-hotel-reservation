@@ -33,7 +33,7 @@
             </div>
             <div class="aside">
                 <h2 class="aside-title">BOOK NOW</h2>
-                <BooksForm />
+                <BooksForm :room="room" :booking="booking" />
             </div>
         </div>
         
@@ -61,7 +61,8 @@
                         Bed: []
                     },
                     amenitiesList: []
-                }
+                },
+                booking: []
             }
         },
         name: 'room',
@@ -78,7 +79,14 @@
                 }
             }).then((response) => {
                 this.room = response.data.room[0];
+
+                response.data.booking.forEach(item => {
+                    this.booking.push(item.date);
+                })
+
                 this.setAenitiesList();
+            }).catch(function (error) {
+                console.log(error);
             });
         },
         mounted() {

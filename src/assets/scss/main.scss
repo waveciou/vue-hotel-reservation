@@ -177,8 +177,13 @@ input[type="text"].ctrl-input {
     appearance: none;
     outline: none;
     font-size: 16px;
-    font-family: 'Noto Sans TC', sans-serif;
     color: $color-gray-dark;
+
+    &[disabled] {
+        color: $color-gray-dark;
+        background-color: $color-white;
+        border-color: $color-black;
+    }
 }
 
 .submit-btn {

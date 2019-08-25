@@ -14,6 +14,7 @@
             <transition name="fade" mode="out-in">
                 <router-view />
             </transition>
+            <Loading text="Loading" :loading="$store.state.loading"></Loading>
         </div>
 
         <footer class="footer">
