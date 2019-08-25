@@ -41,7 +41,7 @@
             </div> -->
         </div>
         <div class="booksform-footer">
-            <a href="javascript:;" class="submit-btn" @click="checkBooksform()">立即預訂</a>
+            <a href="javascript:;" class="btn" @click="checkBooksform()">立即預訂</a>
         </div>
     </div>
 </template>
@@ -177,9 +177,20 @@
                         Authorization: 'Bearer FEHYikSsoJvXjqurOCdQ3nfnpY6i579Hjh7K7ToTmJ11tB7tuiexfHE9uxp8'
                     },
                     data: obj
-                }).then((response) => {
-                    console.log(response);
-                }).catch(function (error) {
+                }).then(response => {
+                    this.$store.dispatch('getBooksOrder', response.data);
+                    this.$store.state.lightbox = true;
+
+                    this.checkInDate = '';
+                    this.checkOutDate = '';
+                    this.form.name = '';
+                    this.form.tel = '';
+
+                }).catch(error => {
+                    this.$Message({
+                        type: 'error',
+                        text: '訂房失敗，此段時間無法預定'
+                    });
                     console.log(error);
                 });
             },

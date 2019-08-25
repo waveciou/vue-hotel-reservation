@@ -1,0 +1,36 @@
+@charset "UTF-8";
+@import "./_utils.scss";
+@import "./_reset.scss";
+
+body {
+    .h-loading {
+        position: fixed;
+        background-color: $color-white;
+
+        .h-loading-circular {
+            > svg .circle {
+                stroke: $color-gray;
+            }
+        }
+    }
+
+    .h-loading-text {
+        color: $color-black;
+    }
+
+    .h-icon-calendar:before {
+        display: none;
+    }
+
+    .h-datetime-input-border .h-datetime-show:hover > input:not([disabled]),
+    .h-datetime-input-border .h-pop-trigger > input:not([disabled]) {
+        border-color: $color-black;
+        box-shadow: 0 0 0 2px rgba($color-black,0.2);
+    }
+
+    input.h-input[disabled],
+    .h-textarea[disabled],
+    input.h-input[readonly], .h-textarea[readonly] {
+        border-color: $color-black;
+    }
+}

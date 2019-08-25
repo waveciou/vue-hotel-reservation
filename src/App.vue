@@ -5,16 +5,15 @@
                 <h1 class="logo">:OR</h1>
                 <div class="menu">
                     <router-link to="home" class="menu-link">HOME</router-link>
-                    <a href="#" class="menu-link">ROOMS</a>
+                    <a href="javascript:;" class="menu-link">ROOMS</a>
                 </div>
             </div>
         </header>
 
-        <div class="main">
+        <div class="main" :class="{'is-show': $store.state.loading}">
             <transition name="fade" mode="out-in">
                 <router-view />
             </transition>
-            <Loading text="Loading" :loading="$store.state.loading"></Loading>
         </div>
 
         <footer class="footer">
@@ -28,7 +27,7 @@
                     </div>
                     <div class="footer-item sitmap">
                         <router-link to="home" class="sitmap-link">HOME</router-link>
-                        <a href="#" class="sitmap-link">ROOMS</a>
+                        <a href="javascript:;" class="sitmap-link">ROOMS</a>
                     </div>
                     <div class="footer-item media">
                         <a href="javascript:;" class="media-link icon-facebook" title="Facebook">Facebook</a>
@@ -39,6 +38,40 @@
                 <div class="copyright">Copyright © 2019 :OR All Rights Reserved.</div>
             </div>
         </footer>
+
+        <Modal v-model="$store.state.lightbox">
+            <div class="lightBox">
+                <div class="lightBox-header">
+                    <a href="javascript:;" class="close-btn" @click="closeLightBox">close</a>
+                </div>
+                <div class="lightBox-title">訂房完成</div>
+                <div class="lightBox-body">
+                    <p>您已預定完成，詳細內容將傳送簡訊至您的手機。</p>
+                    <dl>
+                        <dt>NAME</dt>
+                        <dd>{{ $store.state.order.name }}</dd>
+                    </dl>
+                    <dl>
+                        <dt>TEL.</dt>
+                        <dd>{{ $store.state.order.tel }}</dd>
+                    </dl>
+                    <dl>
+                        <dt>ROOMS</dt>
+                        <dd>{{ $store.state.order.roomName }}</dd>
+                    </dl>
+                    <dl>
+                        <dt>DATE</dt>
+                        <dd>{{ $store.state.order.date }}</dd>
+                    </dl>
+                </div>
+                <div class="lightBox-footer">
+                    <a href="javascript:;" class="btn" @click="closeLightBox">完成</a>
+                </div>
+            </div>
+        </Modal>
+
+        <Loading text="Loading" :loading="$store.state.loading"></Loading>
+
     </div>
 </template>
 
@@ -65,25 +98,26 @@
                     accept: 'application/json',
                     Authorization: 'Bearer FEHYikSsoJvXjqurOCdQ3nfnpY6i579Hjh7K7ToTmJ11tB7tuiexfHE9uxp8'
                 }
-            }).then((response) => {
+            }).then(response => {
                 this.$store.dispatch('getRoomsAllData', response.data.items);
+                this.$store.state.loading = false;
+            }).catch(error => {
+                this.$store.state.loading = false;
+                console.log(error);
             });
         },
-        mounted() {
-            
-        },
         methods: {
-
+            closeLightBox() {
+                this.$store.state.lightbox = false;
+            }
         },
-        watch: {
-            
-        }
     }
 </script>
 
 <style lang="scss">
     @import 'assets/scss/_utils.scss';
     @import 'assets/scss/main.scss';
+    @import 'assets/scss/theme.scss';
 
     .media-link {
         width: 30px;
@@ -110,5 +144,71 @@
         &.icon-instagram {
             background-image: url('../public/img/instagram.svg');
         }
+    }
+
+    // * Light Box
+    .lightBox {
+        width: 500px;
+    }
+
+    .lightBox-header {
+        display: flex;
+        justify-content: flex-end;
+
+        .close-btn {
+            width: 20px;
+            height: 20px;
+            display: block;
+            border-radius: 100%;
+            background-color: $color-black;
+            @include material;
+            line-height: 20px;
+            color: $color-white;
+        }
+    }
+
+    .lightBox-title {
+        font-size: 22px;
+        font-weight: 600;
+        line-height: 1.6em;
+        margin-bottom: 10px;
+        text-align: center;
+        color: $color-black;
+    }
+
+    .lightBox-body {
+        font-size: 16px;
+
+        p {
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+
+        dl {
+            display: flex;
+            justify-content: center;
+            width: 70%;
+            margin-left: auto;
+            margin-right: auto;
+            margin-bottom: 10px;
+        }
+
+        dt {
+            width: 40%;
+            font-weight: 600;
+            padding: 0px 10px;
+            color: $color-black;
+            text-align: right;
+        }
+
+        dd {
+            width: 60%;
+            text-align: left;
+        }
+    }
+
+    .lightBox-footer {
+        text-align: center;
+        margin-bottom: 1rem;
     }
 </style>

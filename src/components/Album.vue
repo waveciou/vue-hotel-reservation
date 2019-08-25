@@ -25,12 +25,6 @@
         props: {
             imageUrl: Array
         },
-        created() {
-
-        },
-        mounted() {
-            
-        },
         methods: {
             selectCurrentImage(url) {
                 this.currentImage = url;
