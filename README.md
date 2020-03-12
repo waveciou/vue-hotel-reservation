@@ -4,7 +4,14 @@
 
 ## DEMO
 
-- [網站連結](https://waveciou.github.io/vue-hotel-reservation/dist/)
+[網站連結](https://waveciou.github.io/vue-hotel-reservation/dist/)
+
+一個旅館線上訂房服務實作，內容包含：
+
+- 與後端串接 API（房型資料、訂房資料）
+- 訂房訂單的表單驗證實作
+- 利用 Vue-router 製作 SPA 網頁架構
+- 使用 Vue.js 的 UI 套件，加強網站畫面呈現效果
 
 ## DESIGN
 
@@ -20,3 +27,4 @@
 - vuex
 - JavaScript ES6
 - SCSS
+- [heyui](https://github.com/heyui/heyui/)
